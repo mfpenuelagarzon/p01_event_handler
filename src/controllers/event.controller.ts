@@ -20,8 +20,20 @@ class EventController {
         }
     }
 
-    public query(req: Request, res: Response) {
-        return res.status(200).json({message: 'Events list!'});
+    public async query(req: Request, res: Response) {
+        try {
+            const {startDate, endDate} = req.query;
+            if (!startDate || !endDate) {
+                throw new Error("Missing query dates");
+            }
+            const result = await eventService.report(startDate as string, endDate as string);
+            return res.status(200).json({
+                message: 'ok',
+                body: result
+            });
+        } catch (e) {
+            return res.status(409).json(e);
+        }
     }
 }
 
