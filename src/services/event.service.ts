@@ -20,7 +20,6 @@ class EventService {
             try {
                 const from = `${startDate} 00:00:00`;
                 const to = `${endDate} 11:59:59`;
-                console.log(`Reporting report: ${JSON.stringify({from, to})}`);
                 const result = await Event.findAll({
                     where: {
                         created_at: {
