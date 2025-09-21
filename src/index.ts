@@ -1,23 +1,30 @@
 import express from 'express';
-import { Advertiser, Database, Role } from 'marketing-request-database-lib';
+import cors from "cors";
+import * as bodyParser from "body-parser";
+import {dbMiddleware} from "../../p01_database_lib";
 
-const app = express();
+import eventRouter from "./routes/events.router";
+
 const port = process.env.PORT || 3000;
 
-app.get('/', async (req, res) => {
-  Database.init({
-    host: 'localhost',
-    database: 'marketing_request_db',
-    port: 3306,
-    username: 'marketing_user',
-    password: 'MarketingApp25@',
-    dialect: "mysql"
-  });
-  Database.getConnection();
-  const roles = await Role.findAll();
-  console.log("ROLES: ", roles);
-  res.status(200).json(roles).end();
-});
+const app = express();
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+app.use(dbMiddleware({
+  host: 'localhost',
+  database: 'marketing_request_db',
+  port: 3306,
+  username: 'marketing_user',
+  password: 'MarketingApp25@',
+  dialect: "mysql",
+  timezone: "-05:00",
+}));
+
+// Paths
+const BASE_PATH = '/api/v1/event';
+
+app.use(BASE_PATH, eventRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
