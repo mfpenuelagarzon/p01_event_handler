@@ -1,6 +1,4 @@
-import {IEvent} from "../../../p01_database_lib";
-import {Event} from "../../../p01_database_lib";
-import {Op} from "../../../p01_database_lib";
+import {IEvent,Event,Op} from "marketing-request-database-lib";
 
 class EventService {
     public save(event: IEvent) {

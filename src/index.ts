@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from "cors";
 import * as bodyParser from "body-parser";
-import {dbMiddleware} from "../../p01_database_lib";
+import {dbMiddleware} from "marketing-request-database-lib";
 
 import eventRouter from "./routes/events.router";
 

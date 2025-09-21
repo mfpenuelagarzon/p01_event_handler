@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {IEvent} from "../../../p01_database_lib";
+import {IEvent} from "marketing-request-database-lib";
 import {getCurrentDate} from "../utils/utilities";
 import {DATE_TIME_FORMAT} from "../utils/constants";
 import eventService from "../services/event.service";
@@ -32,6 +32,7 @@ class EventController {
                 body: result
             });
         } catch (e) {
+            console.log('EventController.query.error::', e);
             return res.status(409).json(e);
         }
     }
